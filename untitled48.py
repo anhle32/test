@@ -34,7 +34,7 @@ if uploaded_file is not None:
 
     # Can be used wherever a "file-like" object is accepted:
     df = pd.read_csv(uploaded_file)
-    st.write(dataframe)
+    st.write(df)
     X = df[['median_income']]
     y = df['revenue'] 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state= 12)
