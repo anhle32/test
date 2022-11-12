@@ -10,15 +10,39 @@ Original file is located at
 import streamlit as st
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.linear_model import LinearRegression
+
+from sklearn.model_selection import train_test_split
 
 
 
-st.title('Uber pickups in NYC')
-genre = st.radio(
-    "What's your favorite movie genre",
-    ('Comedy', 'Drama', 'Documentary'))
+uploaded_file = st.file_uploader("Choose a file")
+if uploaded_file is not None:
+    # To read file as bytes:
+    bytes_data = uploaded_file.getvalue()
+    st.write(bytes_data)
 
-if genre == 'Comedy':
-    st.write('You selected comedy.')
-else:
-    st.write("You didn't select comedy.")
+    # To convert to a string based IO:
+    stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
+    st.write(stringio)
+
+    # To read file as string:
+    string_data = stringio.read()
+    st.write(string_data)
+
+    # Can be used wherever a "file-like" object is accepted:
+    df = pd.read_csv(uploaded_file)
+    st.write(dataframe)
+    X = df[['median_income']]
+    y = df['revenue'] 
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state= 12)
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+    yhat_test = model.predict(X_test)
+    st.write(yhat_test)
+    
+
+   
+
